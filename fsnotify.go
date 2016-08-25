@@ -29,6 +29,7 @@ const (
 	Remove
 	Rename
 	Chmod
+	CloseWrite
 )
 
 func (op Op) String() string {
@@ -50,6 +51,12 @@ func (op Op) String() string {
 	if op&Chmod == Chmod {
 		buffer.WriteString("|CHMOD")
 	}
+	// only supported by inotify
+	if op&CloseWrite == CloseWrite {
+		buffer.WriteString("|CLOSE_WRITE")
+	}
+
+	// If buffer remains empty, return no event names
 	if buffer.Len() == 0 {
 		return ""
 	}
