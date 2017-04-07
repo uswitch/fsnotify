@@ -30,6 +30,7 @@ const (
 	Rename
 	Chmod
 	CloseWrite
+	MovedInto
 )
 
 func (op Op) String() string {
@@ -54,6 +55,10 @@ func (op Op) String() string {
 	// only supported by inotify
 	if op&CloseWrite == CloseWrite {
 		buffer.WriteString("|CLOSE_WRITE")
+	}
+
+	if e.Op&MovedInto == MovedInto {
+		buffer.WriteString("|MOVED_INTO")
 	}
 
 	// If buffer remains empty, return no event names

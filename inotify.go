@@ -336,5 +336,10 @@ func newEvent(name string, mask uint32) Event {
 	if mask&unix.IN_CLOSE_WRITE == unix.IN_CLOSE_WRITE {
 		e.Op |= CloseWrite
 	}
+	if mask&unix.IN_MOVED_TO == unix.IN_MOVED_TO {
+		// Listen for files moved into the folder (this includes files moved within the folder).
+		// This event has the filename of the destination file.
+		e.Op |= MovedInto
+	}
 	return e
 }
