@@ -57,7 +57,7 @@ func (op Op) String() string {
 		buffer.WriteString("|CLOSE_WRITE")
 	}
 
-	if e.Op&MovedInto == MovedInto {
+	if op&MovedInto == MovedInto {
 		buffer.WriteString("|MOVED_INTO")
 	}
 
